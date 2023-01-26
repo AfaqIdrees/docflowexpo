@@ -11,6 +11,8 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
+import { Picker } from "@react-native-picker/picker";
+
 export default function StudentSignUp() {
   const [showSignUp, setShowSignUp] = useState(false);
   const [firstName, setFirstName] = useState("");
@@ -20,6 +22,9 @@ export default function StudentSignUp() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
+  const [year, setSelectedYear] = useState();
+  const [program, setSelectedProgram] = useState();
+
   if (showSignUp) {
     return (
       <ImageBackground
@@ -65,6 +70,44 @@ export default function StudentSignUp() {
                 }}
               ></TextInput>
             </View>
+            <View style={styles.rollNum}>
+              <Text>Reg Num : </Text>
+              <Picker
+                selectedValue={year}
+                style={styles.picker}
+                onValueChange={(itemValue, itemIndex) =>
+                  setSelectedYear(itemValue)
+                }
+              >
+                <Picker.Item label="2015" value="2015" />
+                <Picker.Item label="2016" value="2016" />
+                <Picker.Item label="2017" value="2017" />
+                <Picker.Item label="2018" value="2018" />
+                <Picker.Item label="2019" value="2019" />
+                <Picker.Item label="2020" value="2020" />
+                <Picker.Item label="2021" value="2021" />
+                <Picker.Item label="2022" value="2022" />
+                <Picker.Item label="2023" value="2023" />
+              </Picker>
+
+              <Picker
+                selectedValue={program}
+                style={styles.picker}
+                onValueChange={(itemValue, itemIndex) =>
+                  setSelectedProgram(itemValue)
+                }
+              >
+                <Picker.Item label="BBIT" value="bbit" />
+                <Picker.Item label="BBA" value="bba" />
+                <Picker.Item label="MBA" value="mba" />
+              </Picker>
+
+              <TextInput
+                placeholder="00"
+                inputMode={"numeric"}
+                keyboardType={"number-pad"}
+              ></TextInput>
+            </View>
             <View style={styles.emailView}>
               <TextInput
                 style={styles.email}
@@ -88,16 +131,17 @@ export default function StudentSignUp() {
               <TextInput
                 style={styles.email}
                 placeholder={"Confirm Password"}
-                onChangeText={(text) => {
+                onChange={(text) => {
+                  console.log(text);
                   setConfirmPassword(text);
                 }}
                 secureTextEntry={true}
               ></TextInput>
             </View>
-            <TouchableOpacity>
-              <Text style={styles.SignUpButton}>Create Account</Text>
-            </TouchableOpacity>
           </View>
+          <TouchableOpacity>
+            <Text style={styles.SignUpButton}>Create Account</Text>
+          </TouchableOpacity>
         </View>
       </ImageBackground>
     );
@@ -130,9 +174,9 @@ export default function StudentSignUp() {
                 </Text>
               </TouchableOpacity>
             </View>
-            <View style={styles.emailView}>
+            <View style={[styles.emailView, { marginTop: 20 }]}>
               <TextInput
-                style={styles.email}
+                style={[styles.email, { marginTop: 20 }]}
                 placeholder={"Enter your email"}
                 onChangeText={(text) => {
                   setLoginEmail(text);
@@ -149,11 +193,16 @@ export default function StudentSignUp() {
                 secureTextEntry={true}
               ></TextInput>
             </View>
-
-            <TouchableOpacity>
-              <Text style={styles.SignUpButton}>Login</Text>
-            </TouchableOpacity>
           </View>
+          <TouchableOpacity
+            onPress={() => {
+              console.log(loginEmail);
+            }}
+          >
+            <Text style={[styles.SignUpButton, { marginTop: -200 }]}>
+              Login
+            </Text>
+          </TouchableOpacity>
         </View>
       </ImageBackground>
     );
@@ -186,7 +235,6 @@ const styles = StyleSheet.create({
     width: "90%",
     backgroundColor: "white",
     borderRadius: 48,
-    // elevation: 15,
   },
   TopButtons: {
     top: 20,
@@ -209,6 +257,17 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     top: 40,
   },
+  rollNum: {
+    justifyContent: "space-around",
+    alignItems: "center",
+    marginTop: 50,
+    flexDirection: "row",
+    width: "90%",
+    marginLeft: 20,
+  },
+  picker: {
+    width: 100,
+  },
   textInput: {
     color: "#8ecae6",
     borderColor: "grey",
@@ -219,7 +278,6 @@ const styles = StyleSheet.create({
   },
   emailView: {
     left: 18,
-    marginTop: 20,
   },
   email: {
     color: "#8ecae6",
@@ -228,17 +286,17 @@ const styles = StyleSheet.create({
     padding: 10,
     width: "90%",
     borderRadius: 15,
-    top: 40,
+    marginTop: 20,
   },
   SignUpButton: {
     backgroundColor: "#219ebc",
     borderRadius: 30,
     padding: 15,
-    top: 120,
     width: 150,
     textAlign: "center",
     alignSelf: "center",
     color: "white",
     fontSize: 18,
+    height: "auto",
   },
 });
