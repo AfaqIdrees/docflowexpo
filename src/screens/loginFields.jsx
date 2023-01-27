@@ -8,8 +8,9 @@ import {
   TouchableOpacity,
   TextInput,
   Animated,
+  Alert,
 } from "react-native";
-import { O2A } from "object-to-array-convert";
+import { LoginStudent } from "./api";
 const FadeInView = (props) => {
   const fadeAnim = useRef(new Animated.Value(0.4)).current; // Initial value for opacity: 0
 
@@ -43,12 +44,8 @@ const FadeInView = (props) => {
 };
 
 export default function LoginFields({ setShowSignUp }) {
-  const [loginEmail, setLoginEmail] = useState("");
-  const [loginPassword, setLoginPassword] = useState("");
-
-  // Object.keys(obj).forEach((key) => {
-  //   console.log(`key: ${key}, value: ${obj[key].username}`);
-  // });
+  const [loginEmail, setLoginEmail] = useState("afaqidrees130@gmail.com");
+  const [loginPassword, setLoginPassword] = useState("123");
 
   return (
     <FadeInView style={styles.background}>
@@ -63,6 +60,7 @@ export default function LoginFields({ setShowSignUp }) {
           <TextInput
             style={[styles.email, { marginTop: 20 }]}
             placeholder={"Enter your email"}
+            value={loginEmail}
             onChangeText={(text) => {
               setLoginEmail(text);
             }}
@@ -73,6 +71,7 @@ export default function LoginFields({ setShowSignUp }) {
           <TextInput
             style={styles.email}
             placeholder={"Password"}
+            value={loginPassword}
             onChangeText={(text) => {
               setLoginPassword(text);
             }}
@@ -81,7 +80,17 @@ export default function LoginFields({ setShowSignUp }) {
           ></TextInput>
         </View>
       </View>
-      <TouchableOpacity onPress={() => {}}>
+      <TouchableOpacity
+        onPress={() => {
+          LoginStudent(loginEmail, loginPassword).then((response) => {
+            if (response) {
+              Alert.alert("Log in success!");
+            } else {
+              Alert.alert("Log in unsuccessful");
+            }
+          });
+        }}
+      >
         <Text style={styles.SignUpButton}>Login</Text>
       </TouchableOpacity>
       <TouchableOpacity
