@@ -9,7 +9,7 @@ import {
   TextInput,
   Animated,
 } from "react-native";
-
+import { O2A } from "object-to-array-convert";
 const FadeInView = (props) => {
   const fadeAnim = useRef(new Animated.Value(0.4)).current; // Initial value for opacity: 0
 
@@ -45,6 +45,11 @@ const FadeInView = (props) => {
 export default function LoginFields({ setShowSignUp }) {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
+
+  // Object.keys(obj).forEach((key) => {
+  //   console.log(`key: ${key}, value: ${obj[key].username}`);
+  // });
+
   return (
     <FadeInView style={styles.background}>
       <View>

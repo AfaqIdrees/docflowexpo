@@ -3,13 +3,15 @@ import {
   StyleSheet,
   Text,
   View,
-  ImageBackground,
   Image,
   TouchableOpacity,
   TextInput,
   Animated,
+  Alert,
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
+import { CreateStudent } from "./api";
+
 const FadeInView = (props) => {
   const fadeAnim = useRef(new Animated.Value(0.4)).current; // Initial value for opacity: 0
 
@@ -48,8 +50,10 @@ export default function SignUpFields({ setShowSignUp }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [year, setSelectedYear] = useState();
-  const [program, setSelectedProgram] = useState();
+  const [year, setYear] = useState("2015");
+  const [program, setProgram] = useState("bbit");
+  const [rollNum, setRollNum] = useState("00");
+
   return (
     <FadeInView style={styles.background}>
       <View>
@@ -80,7 +84,10 @@ export default function SignUpFields({ setShowSignUp }) {
           <Picker
             selectedValue={year}
             style={styles.picker}
-            onValueChange={(itemValue, itemIndex) => setSelectedYear(itemValue)}
+            onValueChange={(itemValue, itemIndex) => {
+              console.log(itemValue);
+              setYear(itemValue);
+            }}
           >
             <Picker.Item label="2015" value="2015" />
             <Picker.Item label="2016" value="2016" />
@@ -96,9 +103,7 @@ export default function SignUpFields({ setShowSignUp }) {
           <Picker
             selectedValue={program}
             style={styles.picker}
-            onValueChange={(itemValue, itemIndex) =>
-              setSelectedProgram(itemValue)
-            }
+            onValueChange={(itemValue, itemIndex) => setProgram(itemValue)}
           >
             <Picker.Item label="BBIT" value="bbit" />
             <Picker.Item label="BBA" value="bba" />
@@ -109,6 +114,7 @@ export default function SignUpFields({ setShowSignUp }) {
             placeholder="00"
             inputMode={"numeric"}
             keyboardType={"number-pad"}
+            onChangeText={(value) => setRollNum(value)}
           ></TextInput>
         </View>
         <View style={styles.emailView}>
@@ -134,7 +140,7 @@ export default function SignUpFields({ setShowSignUp }) {
           <TextInput
             style={styles.email}
             placeholder={"Confirm Password"}
-            onChange={(text) => {
+            onChangeText={(text) => {
               console.log(text);
               setConfirmPassword(text);
             }}
@@ -142,7 +148,27 @@ export default function SignUpFields({ setShowSignUp }) {
           ></TextInput>
         </View>
       </View>
-      <TouchableOpacity style={{ top: -130 }}>
+      <TouchableOpacity
+        style={{ top: -130 }}
+        onPress={() => {
+          CreateStudent(
+            firstName,
+            lastName,
+            year,
+            program,
+            rollNum,
+            email,
+            password
+          ).then((result) => {
+            console.log(result);
+            if (result) {
+              Alert.alert("Account created successfully!");
+            } else {
+              Alert.alert("Could not create account, try again.");
+            }
+          });
+        }}
+      >
         <Text style={styles.SignUpButton}>Sign Up</Text>
       </TouchableOpacity>
       <TouchableOpacity
