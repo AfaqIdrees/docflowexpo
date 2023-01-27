@@ -44,7 +44,7 @@ const FadeInView = (props) => {
   );
 };
 
-export default function SignUpFields({ setShowSignUp }) {
+export default function SignUpFields({ navigation, setShowSignUp }) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");

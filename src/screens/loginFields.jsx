@@ -43,7 +43,7 @@ const FadeInView = (props) => {
   );
 };
 
-export default function LoginFields({ setShowSignUp }) {
+export default function LoginFields({ navigation, setShowSignUp }) {
   const [loginEmail, setLoginEmail] = useState("afaqidrees130@gmail.com");
   const [loginPassword, setLoginPassword] = useState("123");
 
@@ -85,6 +85,7 @@ export default function LoginFields({ setShowSignUp }) {
           LoginStudent(loginEmail, loginPassword).then((response) => {
             if (response) {
               Alert.alert("Log in success!");
+              navigation.navigate("StudentHome");
             } else {
               Alert.alert("Log in unsuccessful");
             }

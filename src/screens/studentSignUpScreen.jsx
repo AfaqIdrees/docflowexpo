@@ -21,7 +21,7 @@ export default function StudentSignUp({ navigation }) {
         source={require("../images/bgGradient1.png")}
         resizeMode={"cover"}
       >
-        <SignUpFields setShowSignUp={setShowSignUp} />
+        <SignUpFields setShowSignUp={setShowSignUp} navigation={navigation} />
       </ImageBackground>
     );
   } else {
@@ -30,7 +30,7 @@ export default function StudentSignUp({ navigation }) {
         source={require("../images/bgGradient1.png")}
         resizeMode={"cover"}
       >
-        <LoginFields setShowSignUp={setShowSignUp} />
+        <LoginFields setShowSignUp={setShowSignUp} navigation={navigation} />
       </ImageBackground>
     );
   }
