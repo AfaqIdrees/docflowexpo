@@ -1,4 +1,6 @@
 import axios from "axios";
+import { StoreItem } from "./asyncStorage";
+
 const BASE_URL = "https://docflow-3a5d5-default-rtdb.firebaseio.com";
 export async function CreateStudent(
   fname,
@@ -45,12 +47,12 @@ export async function LoginStudent(email, password) {
   const response = axios.get(`${BASE_URL}/students.json`).then((response) => {
     let loginStatus = false;
     Object.keys(response.data).forEach((key) => {
-      console.log(`key: ${key}, value: ${response.data[key].email}`);
       if (
         response.data[key].email == email &&
         response.data[key].password == password
       ) {
         loginStatus = true;
+        StoreItem("@student", response.data[key]);
       }
     });
     return loginStatus;

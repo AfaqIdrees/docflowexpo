@@ -10,6 +10,7 @@ import {
   TextInput,
   Animated,
 } from "react-native";
+import { GetItem } from "./asyncStorage";
 
 const FadeInView = (props) => {
   const fadeAnim = useRef(new Animated.Value(0.4)).current; // Initial value for opacity: 0
@@ -44,6 +45,13 @@ const FadeInView = (props) => {
 };
 
 export default function HomeScreen({ navigation }) {
+  useEffect(() => {
+    GetItem("@student").then((response) => {
+      if (response) {
+        navigation.navigate("StudentHome");
+      }
+    });
+  });
   return (
     <ImageBackground
       source={require("../images/bgGradient1.png")}

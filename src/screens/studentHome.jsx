@@ -10,10 +10,37 @@ import {
   Animated,
   Alert,
 } from "react-native";
+import { GetItem } from "./asyncStorage";
 export default function StudentHome() {
+  const [student, setStudent] = useState({});
+  useEffect(() => {
+    GetItem("@student")
+      .then((item) => {
+        setStudent(item);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  });
   return (
     <ImageBackground source={require("../images/bg3.png")} resizeMode={"cover"}>
-      <View style={styles.background}></View>
+      <View style={styles.background}>
+        <View style={styles.topCard}>
+          <Text style={styles.welcomeText}>Welcome {student.firstName}</Text>
+          <Text>
+            {" "}
+            {student.year}-{student.program?.toUpperCase()}-{student.rollNum}
+          </Text>
+        </View>
+        <View style={styles.formDetailCard}>
+          <Text style={styles.welcomeText}>Submitted Forms: 4</Text>
+          <Text style={styles.welcomeText}>Completed: 2</Text>
+          <Text style={styles.welcomeText}>In Progress: 2</Text>
+          <TouchableOpacity style={{ alignSelf: "flex-end" }}>
+            <Text>Details</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
     </ImageBackground>
   );
 }
@@ -24,6 +51,31 @@ const styles = StyleSheet.create({
     width: "100%",
     display: "flex",
     alignItems: "center",
+  },
+  topCard: {
+    height: 100,
+    width: "95%",
+    backgroundColor: "white",
+    marginTop: 50,
+    borderRadius: 20,
+    elevation: 10,
+    alignItems: "center",
     justifyContent: "center",
+  },
+  welcomeText: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "purple",
+  },
+  formDetailCard: {
+    height: 200,
+    width: "87%",
+    backgroundColor: "white",
+    marginTop: 20,
+    borderRadius: 20,
+    elevation: 10,
+    justifyContent: "center",
+    paddingLeft: 20,
+    paddingRight: 20,
   },
 });
