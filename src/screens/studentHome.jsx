@@ -10,8 +10,9 @@ import {
   Animated,
   Alert,
 } from "react-native";
-import { GetItem } from "./asyncStorage";
-export default function StudentHome() {
+import { GetItem, RemoveItem } from "./asyncStorage";
+import DocumentsMenu from "./documents";
+export default function StudentHome({ navigation }) {
   const [student, setStudent] = useState({});
   useEffect(() => {
     GetItem("@student")
@@ -28,7 +29,6 @@ export default function StudentHome() {
         <View style={styles.topCard}>
           <Text style={styles.welcomeText}>Welcome {student.firstName}</Text>
           <Text>
-            {" "}
             {student.year}-{student.program?.toUpperCase()}-{student.rollNum}
           </Text>
         </View>
@@ -40,6 +40,21 @@ export default function StudentHome() {
             <Text>Details</Text>
           </TouchableOpacity>
         </View>
+        <DocumentsMenu navigation={navigation}></DocumentsMenu>
+        <TouchableOpacity
+          onPress={() => {
+            RemoveItem("@student")
+              .then((response) => {
+                console.log("Logging out");
+                navigation.navigate("StudentSignUp");
+              })
+              .catch((error) => {
+                console.log("Couldn't log out", error);
+              });
+          }}
+        >
+          <Text>Log out</Text>
+        </TouchableOpacity>
       </View>
     </ImageBackground>
   );

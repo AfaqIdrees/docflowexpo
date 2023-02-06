@@ -3,7 +3,7 @@ export async function StoreItem(key, value) {
   try {
     const jsonValue = JSON.stringify(value);
     await AsyncStorage.setItem(key, jsonValue);
-    console.log("Stored student into storage", jsonValue);
+    // console.log("Stored student into storage", jsonValue);
   } catch (e) {
     console.log("Couldn't store student into storage", e);
   }
@@ -22,6 +22,7 @@ export async function GetItem(key) {
 export async function RemoveItem(key) {
   try {
     await AsyncStorage.removeItem(key);
+    console.log("Removed value from storage");
   } catch (e) {
     // remove error
   }
