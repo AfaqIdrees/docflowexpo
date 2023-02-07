@@ -10,6 +10,7 @@ import {
   Animated,
   Alert,
 } from "react-native";
+import { getMyForms } from "./api";
 import { GetItem, RemoveItem } from "./asyncStorage";
 import DocumentsMenu from "./documents";
 export default function StudentHome({ navigation }) {
@@ -36,7 +37,12 @@ export default function StudentHome({ navigation }) {
           <Text style={styles.welcomeText}>Submitted Forms: 4</Text>
           <Text style={styles.welcomeText}>Completed: 2</Text>
           <Text style={styles.welcomeText}>In Progress: 2</Text>
-          <TouchableOpacity style={{ alignSelf: "flex-end" }}>
+          <TouchableOpacity
+            style={{ alignSelf: "flex-end" }}
+            onPress={() => {
+              navigation.navigate("MyForms");
+            }}
+          >
             <Text>Details</Text>
           </TouchableOpacity>
         </View>

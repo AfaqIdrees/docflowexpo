@@ -1,5 +1,5 @@
 import axios from "axios";
-import { StoreItem } from "./asyncStorage";
+import { GetItem, StoreItem } from "./asyncStorage";
 
 const BASE_URL = "https://docflow-3a5d5-default-rtdb.firebaseio.com";
 export async function CreateStudent(
@@ -67,7 +67,8 @@ export async function LoginStudent(email, password) {
 export function CreateLeave({ student }, reason, days, date, description) {
   console.log(student);
   const response = axios
-    .post(`${BASE_URL}/documnets.json`, {
+    .post(`${BASE_URL}/documents.json`, {
+      type: "leave",
       firstName: student.firstName,
       lastName: student.lastName,
       year: student.year,
@@ -91,4 +92,66 @@ export function CreateLeave({ student }, reason, days, date, description) {
     });
 
   return response;
+}
+
+export function CreateScholarshipForm(
+  { student },
+  cgpa,
+  semester,
+  description
+) {
+  console.log(student);
+  const response = axios
+    .post(`${BASE_URL}/documents.json`, {
+      type: "scholarship",
+      firstName: student.firstName,
+      lastName: student.lastName,
+      year: student.year,
+      program: student.program,
+      rollNum: student.rollNum,
+      description: description,
+      cgpa: cgpa,
+      semester: semester,
+      studentId: student.studentId,
+      status: "New",
+      adminComments: "",
+    })
+    .then((response) => {
+      console.log(response.data);
+      return true;
+    })
+    .catch((err) => {
+      console.log("Error:", err);
+      return false;
+    });
+
+  return response;
+}
+
+export async function GetMyForms() {
+  let student_id = "";
+  const forms = GetItem("@student")
+    .then((res) => {
+      student_id = res.studentId;
+      console.log(student_id);
+      let forms = axios
+        .get(`${BASE_URL}/documents.json`)
+        .then((resp) => {
+          let myForms = [];
+          Object.keys(resp.data).forEach((key) => {
+            resp.data[key].studentId == student_id
+              ? myForms.push(resp.data[key])
+              : "";
+          });
+          return myForms;
+        })
+        .catch((err) => {
+          console.log("Can not get my documents:", err);
+        });
+      return forms;
+    })
+    .catch((err) => {
+      console.log("Can not get student id:", err);
+    });
+  return forms;
 }

@@ -15,10 +15,14 @@ export default function DocumentsMenu({ navigation }) {
             <Text style={{ textAlign: "center" }}>New Form1</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("ScholarshipForm");
+          }}
+        >
           <View style={styles.square}>
             <View style={styles.icon}></View>
-            <Text style={{ textAlign: "center" }}>New Form4</Text>
+            <Text style={{ textAlign: "center" }}>New Form2</Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -27,7 +31,7 @@ export default function DocumentsMenu({ navigation }) {
         <TouchableOpacity>
           <View style={styles.square}>
             <View style={styles.icon}></View>
-            <Text style={{ textAlign: "center" }}>New Form4</Text>
+            <Text style={{ textAlign: "center" }}>New Form3</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity>
