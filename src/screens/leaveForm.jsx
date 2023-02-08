@@ -31,6 +31,17 @@ export default function LeaveForm({ navigation }) {
     <ImageBackground source={require("../images/bg3.png")} resizeMode={"cover"}>
       <View style={styles.background}>
         <View style={styles.formArea}>
+          <Text
+            style={{
+              textAlign: "center",
+              fontSize: 20,
+              borderBottomWidth: 1,
+              paddingBottom: 5,
+              marginBottom: 15,
+            }}
+          >
+            Leave Form
+          </Text>
           <Text>Reason</Text>
           <TextInput
             placeholder="State Reason for leave"
@@ -72,7 +83,7 @@ export default function LeaveForm({ navigation }) {
               );
             }}
           >
-            <Text>Submit</Text>
+            <Text style={{ color: "white" }}>Submit</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -90,7 +101,7 @@ const styles = StyleSheet.create({
   },
   formArea: {
     backgroundColor: "white",
-    height: 400,
+    height: 450,
     width: "95%",
     borderRadius: 30,
     padding: 20,

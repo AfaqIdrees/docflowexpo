@@ -11,11 +11,10 @@ import {
   Alert,
 } from "react-native";
 import { GetItem } from "./asyncStorage";
-import { CreateLeave, CreateScholarshipForm } from "./api";
-export default function ScholarshipForm({ navigation }) {
+import { CreateCustomForm } from "./api";
+export default function CustomForm({ navigation }) {
   const [student, setStudent] = useState({});
-  const [cgpa, setCgpa] = useState("");
-  const [semester, setSemester] = useState("");
+  const [reason, setReason] = useState("");
   const [description, setDescription] = useState("");
   useEffect(() => {
     GetItem("@student")
@@ -39,46 +38,34 @@ export default function ScholarshipForm({ navigation }) {
               marginBottom: 15,
             }}
           >
-            Scholarship Form
+            Custom Form
           </Text>
-          <Text>CGPA</Text>
+          <Text>Title</Text>
           <TextInput
-            placeholder="Your current cgpa"
-            inputMode={"numeric"}
-            keyboardType={"number-pad"}
-            onChangeText={(value) => setCgpa(value)}
+            placeholder="State a short title of the form"
+            onChangeText={(value) => setReason(value)}
           ></TextInput>
-          <Text>Semester</Text>
-          <TextInput
-            placeholder="Your current semester"
-            inputMode={"numeric"}
-            keyboardType={"number-pad"}
-            onChangeText={(value) => setSemester(value)}
-          ></TextInput>
-          <Text>Reason for application</Text>
+          <Text>Description</Text>
           <TextInput
             multiline={true}
             numberOfLines={5}
             onChangeText={(value) => setDescription(value)}
-            placeholder="Reason"
+            placeholder="Description"
           />
           <TouchableOpacity
             style={styles.SignUpButton}
             onPress={() => {
               console.log(student);
-              CreateScholarshipForm(
-                { student },
-                cgpa,
-                semester,
-                description
-              ).then((result) => {
-                console.log(result);
-                if (result) {
-                  Alert.alert("Scholarship form submitted successfully!");
-                } else {
-                  Alert.alert("Could not submit scholarship form, try again.");
+              CreateCustomForm({ student }, reason, description).then(
+                (result) => {
+                  console.log(result);
+                  if (result) {
+                    Alert.alert("Custom form submitted successfully!");
+                  } else {
+                    Alert.alert("Could not submit custom form, try again.");
+                  }
                 }
-              });
+              );
             }}
           >
             <Text>Submit</Text>

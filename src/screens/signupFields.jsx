@@ -151,22 +151,26 @@ export default function SignUpFields({ navigation, setShowSignUp }) {
       <TouchableOpacity
         style={{ top: -130 }}
         onPress={() => {
-          CreateStudent(
-            firstName,
-            lastName,
-            year,
-            program,
-            rollNum,
-            email,
-            password
-          ).then((result) => {
-            console.log(result);
-            if (result) {
-              Alert.alert("Account created successfully!");
-            } else {
-              Alert.alert("Could not create account, try again.");
-            }
-          });
+          if (password == confirmPassword) {
+            CreateStudent(
+              firstName,
+              lastName,
+              year,
+              program,
+              rollNum,
+              email,
+              password
+            ).then((result) => {
+              console.log(result);
+              if (result) {
+                Alert.alert("Account created successfully!");
+              } else {
+                Alert.alert("Could not create account, try again.");
+              }
+            });
+          } else {
+            Alert.alert("Passwords don't match.");
+          }
         }}
       >
         <Text style={styles.SignUpButton}>Sign Up</Text>

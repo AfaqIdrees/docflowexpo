@@ -11,11 +11,12 @@ import {
   Alert,
 } from "react-native";
 import { GetItem } from "./asyncStorage";
-import { CreateLeave, CreateScholarshipForm } from "./api";
-export default function ScholarshipForm({ navigation }) {
+import { CreateFeeInstallmentForm } from "./api";
+export default function FeeInstallmentForm({ navigation }) {
   const [student, setStudent] = useState({});
   const [cgpa, setCgpa] = useState("");
   const [semester, setSemester] = useState("");
+  const [fee, setFee] = useState();
   const [description, setDescription] = useState("");
   useEffect(() => {
     GetItem("@student")
@@ -39,7 +40,7 @@ export default function ScholarshipForm({ navigation }) {
               marginBottom: 15,
             }}
           >
-            Scholarship Form
+            Fee Installment Form
           </Text>
           <Text>CGPA</Text>
           <TextInput
@@ -55,6 +56,13 @@ export default function ScholarshipForm({ navigation }) {
             keyboardType={"number-pad"}
             onChangeText={(value) => setSemester(value)}
           ></TextInput>
+          <Text>Current Fee Amount</Text>
+          <TextInput
+            placeholder="Your current fee amount in rupees"
+            inputMode={"numeric"}
+            keyboardType={"number-pad"}
+            onChangeText={(value) => setFee(value)}
+          ></TextInput>
           <Text>Reason for application</Text>
           <TextInput
             multiline={true}
@@ -66,22 +74,25 @@ export default function ScholarshipForm({ navigation }) {
             style={styles.SignUpButton}
             onPress={() => {
               console.log(student);
-              CreateScholarshipForm(
+              CreateFeeInstallmentForm(
                 { student },
                 cgpa,
                 semester,
+                fee,
                 description
               ).then((result) => {
                 console.log(result);
                 if (result) {
-                  Alert.alert("Scholarship form submitted successfully!");
+                  Alert.alert("Fee installment form submitted successfully!");
                 } else {
-                  Alert.alert("Could not submit scholarship form, try again.");
+                  Alert.alert(
+                    "Could not submit fee installment form, try again."
+                  );
                 }
               });
             }}
           >
-            <Text>Submit</Text>
+            <Text style={{ color: "white" }}>Submit</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -99,7 +110,7 @@ const styles = StyleSheet.create({
   },
   formArea: {
     backgroundColor: "white",
-    height: 400,
+    height: 450,
     width: "95%",
     borderRadius: 30,
     padding: 20,

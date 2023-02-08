@@ -140,7 +140,7 @@ export async function GetMyForms() {
           let myForms = [];
           Object.keys(resp.data).forEach((key) => {
             resp.data[key].studentId == student_id
-              ? myForms.push(resp.data[key])
+              ? myForms.push({ ...resp.data[key], formId: key })
               : "";
           });
           return myForms;
@@ -154,4 +154,83 @@ export async function GetMyForms() {
       console.log("Can not get student id:", err);
     });
   return forms;
+}
+
+export function CreateFeeInstallmentForm(
+  { student },
+  cgpa,
+  semester,
+  fee,
+  description
+) {
+  console.log(student);
+  const response = axios
+    .post(`${BASE_URL}/documents.json`, {
+      type: "fee-installment",
+      firstName: student.firstName,
+      lastName: student.lastName,
+      year: student.year,
+      program: student.program,
+      rollNum: student.rollNum,
+      description: description,
+      cgpa: cgpa,
+      semester: semester,
+      studentId: student.studentId,
+      status: "New",
+      adminComments: "",
+      fee: fee,
+    })
+    .then((response) => {
+      console.log(response.data);
+      return true;
+    })
+    .catch((err) => {
+      console.log("Error:", err);
+      return false;
+    });
+
+  return response;
+}
+
+export function CreateCustomForm({ student }, reason, description) {
+  console.log(student);
+  const response = axios
+    .post(`${BASE_URL}/documents.json`, {
+      type: "custom",
+      firstName: student.firstName,
+      lastName: student.lastName,
+      year: student.year,
+      program: student.program,
+      rollNum: student.rollNum,
+      reason: reason,
+      description: description,
+      studentId: student.studentId,
+      status: "New",
+      adminComments: "",
+    })
+    .then((response) => {
+      console.log(response.data);
+      return true;
+    })
+    .catch((err) => {
+      console.log("Error:", err);
+      return false;
+    });
+
+  return response;
+}
+
+export function DeleteForm(formId) {
+  const response = axios
+    .delete(`${BASE_URL}/documents/${formId}.json`)
+    .then((response) => {
+      console.log("Deleted in api");
+      return true;
+    })
+    .catch((err) => {
+      console.log("Error:", err);
+      return false;
+    });
+
+  return response;
 }
