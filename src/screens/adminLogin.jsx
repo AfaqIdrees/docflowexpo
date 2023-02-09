@@ -44,8 +44,8 @@ const FadeInView = (props) => {
 };
 
 export default function AdminLogin({ navigation }) {
-  const [loginEmail, setLoginEmail] = useState("admin@docflow.com");
-  const [loginPassword, setLoginPassword] = useState("123");
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
 
   return (
     <ImageBackground

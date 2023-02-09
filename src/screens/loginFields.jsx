@@ -44,8 +44,8 @@ const FadeInView = (props) => {
 };
 
 export default function LoginFields({ navigation, setShowSignUp }) {
-  const [loginEmail, setLoginEmail] = useState("afaqidrees130@gmail.com");
-  const [loginPassword, setLoginPassword] = useState("123");
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
 
   return (
     <FadeInView style={styles.background}>

@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "docFlowExpo",
-    "slug": "docFlowExpo",
+    "name": "DocFlow",
+    "slug": "DocFlowProject",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -23,10 +23,17 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "versionCode": 1,
+      "package": "com.majeedahmed9379.DocFlowProject"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "53a670ee-08dd-4ae7-bf42-cc3996bc6506"
+      }
     }
   }
 }
