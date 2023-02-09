@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from "react";
-
 import {
   StyleSheet,
   Text,
@@ -9,9 +8,9 @@ import {
   TouchableOpacity,
   TextInput,
   Animated,
+  Alert,
 } from "react-native";
-import { GetItem } from "./asyncStorage";
-
+import { LoginStudent } from "./api";
 const FadeInView = (props) => {
   const fadeAnim = useRef(new Animated.Value(0.4)).current; // Initial value for opacity: 0
 
@@ -44,14 +43,10 @@ const FadeInView = (props) => {
   );
 };
 
-export default function HomeScreen({ navigation }) {
-  useEffect(() => {
-    GetItem("@student").then((response) => {
-      if (response) {
-        navigation.navigate("StudentHome");
-      }
-    });
-  });
+export default function AdminLogin({ navigation }) {
+  const [loginEmail, setLoginEmail] = useState("admin@docflow.com");
+  const [loginPassword, setLoginPassword] = useState("123");
+
   return (
     <ImageBackground
       source={require("../images/bgGradient1.png")}
@@ -64,23 +59,42 @@ export default function HomeScreen({ navigation }) {
         <View style={styles.headingView}>
           <Text style={styles.heading}> DocFlow</Text>
         </View>
-
+        <View style={styles.formView}>
+          <View style={[styles.emailView, { marginTop: 20 }]}>
+            <TextInput
+              style={[styles.email, { marginTop: 20 }]}
+              placeholder={"Enter your email"}
+              value={loginEmail}
+              onChangeText={(text) => {
+                setLoginEmail(text);
+              }}
+              placeholderTextColor="#FFFF"
+            ></TextInput>
+          </View>
+          <View style={styles.emailView}>
+            <TextInput
+              style={styles.email}
+              placeholder={"Password"}
+              value={loginPassword}
+              onChangeText={(text) => {
+                setLoginPassword(text);
+              }}
+              secureTextEntry={true}
+              placeholderTextColor="#FFFF"
+            ></TextInput>
+          </View>
+        </View>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("AdminLogin");
+            if (loginEmail == "admin@docflow.com" && loginPassword == "123") {
+              Alert.alert("Login Successfull!");
+              navigation.navigate("AdminHome");
+            } else {
+              Alert.alert("Wrong Credentials");
+            }
           }}
-          style={styles.LogInButton}
         >
-          <Text style={styles.buttonText}>Login as Admin</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate("StudentSignUp");
-          }}
-          style={styles.LogInButton}
-        >
-          <Text style={styles.buttonText}>Login as Student</Text>
+          <Text style={styles.SignUpButton}>Login</Text>
         </TouchableOpacity>
       </FadeInView>
     </ImageBackground>
@@ -98,31 +112,47 @@ const styles = StyleSheet.create({
   logo: {
     width: 100,
     height: 100,
+    top: 70,
   },
   headingView: {
-    top: 25,
+    top: 75,
   },
   heading: {
     fontSize: 30,
     fontWeight: "bold",
     color: "white",
   },
+  formView: {
+    top: 90,
+    height: 300,
+    width: "90%",
+    backgroundColor: "rgba(255, 255, 255, 0.4)",
+    borderRadius: 48,
+  },
 
-  LogInButton: {
+  emailView: {
+    left: 18,
+  },
+  email: {
+    color: "#8ecae6",
+    borderColor: "white",
+    borderWidth: 1,
+    padding: 10,
+    width: "90%",
+    borderRadius: 15,
+    marginTop: 20,
+  },
+  SignUpButton: {
     backgroundColor: "#5BCC94",
     borderRadius: 30,
     padding: 15,
-    width: 320,
+    width: 120,
     textAlign: "center",
-    marginTop: 30,
-    height: 80,
-    alignItems: "center",
-    justifyContent: "center",
-    top: 20,
-  },
-  buttonText: {
     color: "white",
-    fontSize: 28,
+    fontSize: 18,
+    height: "auto",
+    marginTop: -40,
+    marginLeft: 210,
   },
   bottomText: {
     top: 50,

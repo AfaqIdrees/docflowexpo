@@ -156,6 +156,22 @@ export async function GetMyForms() {
   return forms;
 }
 
+export async function GetAllForms() {
+  let forms = axios
+    .get(`${BASE_URL}/documents.json`)
+    .then((resp) => {
+      let myForms = [];
+      Object.keys(resp.data).forEach((key) => {
+        myForms.push({ ...resp.data[key], formId: key });
+      });
+      return myForms;
+    })
+    .catch((err) => {
+      console.log("Can not get all documents:", err);
+    });
+  return forms;
+}
+
 export function CreateFeeInstallmentForm(
   { student },
   cgpa,
@@ -229,6 +245,24 @@ export function DeleteForm(formId) {
     })
     .catch((err) => {
       console.log("Error:", err);
+      return false;
+    });
+
+  return response;
+}
+
+export function UpdateForm(formId, comments, status) {
+  const response = axios
+    .patch(`${BASE_URL}/documents/${formId}.json`, {
+      status: status,
+      adminComments: comments,
+    })
+    .then((response) => {
+      console.log("Updated the form");
+      return true;
+    })
+    .catch((err) => {
+      console.log("Error in updation:", err);
       return false;
     });
 

@@ -36,7 +36,7 @@ export default function StudentHome({ navigation }) {
               newForm += 1;
             } else if (item.status == "In Progress") {
               inProgressForm += 1;
-            } else if (item.status == "Complete") {
+            } else if (item.status == "Completed") {
               completeForm += 1;
             }
           });
@@ -66,7 +66,7 @@ export default function StudentHome({ navigation }) {
               newForm += 1;
             } else if (item.status == "In Progress") {
               inProgressForm += 1;
-            } else if (item.status == "Complete") {
+            } else if (item.status == "Completed") {
               completeForm += 1;
             }
           });

@@ -68,7 +68,7 @@ export default function CustomForm({ navigation }) {
               );
             }}
           >
-            <Text>Submit</Text>
+            <Text style={{ color: "white" }}>Submit</Text>
           </TouchableOpacity>
         </View>
       </View>

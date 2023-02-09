@@ -81,7 +81,7 @@ export default function ScholarshipForm({ navigation }) {
               });
             }}
           >
-            <Text>Submit</Text>
+            <Text style={{ color: "white" }}>Submit</Text>
           </TouchableOpacity>
         </View>
       </View>

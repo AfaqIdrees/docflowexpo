@@ -6,12 +6,21 @@ import {
   Text,
   ScrollView,
   TouchableOpacity,
+  TextInput,
+  Alert,
 } from "react-native";
-import { GetMyForms } from "./api";
+
+import { Picker } from "@react-native-picker/picker";
+import { UpdateForm } from "./api";
+
 export default function ViewForm({ route, navigation }) {
   const [form, setForm] = useState([{ type: "ABC" }]);
+  const [comment, setComment] = useState("");
+  const [status, setStatus] = useState("New");
   useEffect(() => {
     setForm(route.params);
+    setComment(route.params.adminComments);
+    setStatus(route.params.status);
   }, []);
   return (
     <ImageBackground source={require("../images/bg3.png")} resizeMode={"cover"}>
@@ -54,6 +63,54 @@ export default function ViewForm({ route, navigation }) {
                 <Text style={styles.formText}>
                   Admin Comments: {form.adminComments}
                 </Text>
+                {(() => {
+                  if (route.params.adminView) {
+                    return (
+                      <View>
+                        <TextInput
+                          placeholder="Add comments for the form"
+                          value={comment}
+                          onChangeText={(value) => setComment(value)}
+                        />
+                        <Picker
+                          selectedValue={status}
+                          style={styles.picker}
+                          onValueChange={(itemValue, itemIndex) =>
+                            setStatus(itemValue)
+                          }
+                        >
+                          <Picker.Item label="New" value="New" />
+                          <Picker.Item
+                            label="In Progress"
+                            value="In Progress"
+                          />
+                          <Picker.Item label="Completed" value="Completed" />
+                        </Picker>
+                        <TouchableOpacity
+                          style={styles.updateButton}
+                          onPress={() => {
+                            UpdateForm(form.formId, comment, status).then(
+                              (result) => {
+                                console.log(result);
+                                if (result) {
+                                  Alert.alert("Form Updated successfully!");
+                                } else {
+                                  Alert.alert(
+                                    "Could not update form, try again."
+                                  );
+                                }
+                              }
+                            );
+                          }}
+                        >
+                          <Text style={{ color: "white", fontSize: 18 }}>
+                            Update
+                          </Text>
+                        </TouchableOpacity>
+                      </View>
+                    );
+                  }
+                })()}
               </View>
             );
           } else if (form.type == "scholarship") {
@@ -87,6 +144,54 @@ export default function ViewForm({ route, navigation }) {
                 <Text style={styles.formText}>
                   Admin Comments: {form.adminComments}
                 </Text>
+                {(() => {
+                  if (route.params.adminView) {
+                    return (
+                      <View>
+                        <TextInput
+                          placeholder="Add comments for the form"
+                          value={comment}
+                          onChangeText={(value) => setComment(value)}
+                        />
+                        <Picker
+                          selectedValue={status}
+                          style={styles.picker}
+                          onValueChange={(itemValue, itemIndex) =>
+                            setStatus(itemValue)
+                          }
+                        >
+                          <Picker.Item label="New" value="New" />
+                          <Picker.Item
+                            label="In Progress"
+                            value="In Progress"
+                          />
+                          <Picker.Item label="Completed" value="Completed" />
+                        </Picker>
+                        <TouchableOpacity
+                          style={styles.updateButton}
+                          onPress={() => {
+                            UpdateForm(form.formId, comment, status).then(
+                              (result) => {
+                                console.log(result);
+                                if (result) {
+                                  Alert.alert("Form Updated successfully!");
+                                } else {
+                                  Alert.alert(
+                                    "Could not update form, try again."
+                                  );
+                                }
+                              }
+                            );
+                          }}
+                        >
+                          <Text style={{ color: "white", fontSize: 18 }}>
+                            Update
+                          </Text>
+                        </TouchableOpacity>
+                      </View>
+                    );
+                  }
+                })()}
               </View>
             );
           } else if (form.type == "fee-installment") {
@@ -121,6 +226,54 @@ export default function ViewForm({ route, navigation }) {
                 <Text style={styles.formText}>
                   Admin Comments: {form.adminComments}
                 </Text>
+                {(() => {
+                  if (route.params.adminView) {
+                    return (
+                      <View>
+                        <TextInput
+                          placeholder="Add comments for the form"
+                          value={comment}
+                          onChangeText={(value) => setComment(value)}
+                        />
+                        <Picker
+                          selectedValue={status}
+                          style={styles.picker}
+                          onValueChange={(itemValue, itemIndex) =>
+                            setStatus(itemValue)
+                          }
+                        >
+                          <Picker.Item label="New" value="New" />
+                          <Picker.Item
+                            label="In Progress"
+                            value="In Progress"
+                          />
+                          <Picker.Item label="Completed" value="Completed" />
+                        </Picker>
+                        <TouchableOpacity
+                          style={styles.updateButton}
+                          onPress={() => {
+                            UpdateForm(form.formId, comment, status).then(
+                              (result) => {
+                                console.log(result);
+                                if (result) {
+                                  Alert.alert("Form Updated successfully!");
+                                } else {
+                                  Alert.alert(
+                                    "Could not update form, try again."
+                                  );
+                                }
+                              }
+                            );
+                          }}
+                        >
+                          <Text style={{ color: "white", fontSize: 18 }}>
+                            Update
+                          </Text>
+                        </TouchableOpacity>
+                      </View>
+                    );
+                  }
+                })()}
               </View>
             );
           } else if (form.type == "custom") {
@@ -154,6 +307,54 @@ export default function ViewForm({ route, navigation }) {
                 <Text style={styles.formText}>
                   Admin Comments: {form.adminComments}
                 </Text>
+                {(() => {
+                  if (route.params.adminView) {
+                    return (
+                      <View>
+                        <TextInput
+                          placeholder="Add comments for the form"
+                          value={comment}
+                          onChangeText={(value) => setComment(value)}
+                        />
+                        <Picker
+                          selectedValue={status}
+                          style={styles.picker}
+                          onValueChange={(itemValue, itemIndex) =>
+                            setStatus(itemValue)
+                          }
+                        >
+                          <Picker.Item label="New" value="New" />
+                          <Picker.Item
+                            label="In Progress"
+                            value="In Progress"
+                          />
+                          <Picker.Item label="Completed" value="Completed" />
+                        </Picker>
+                        <TouchableOpacity
+                          style={styles.updateButton}
+                          onPress={() => {
+                            UpdateForm(form.formId, comment, status).then(
+                              (result) => {
+                                console.log(result);
+                                if (result) {
+                                  Alert.alert("Form Updated successfully!");
+                                } else {
+                                  Alert.alert(
+                                    "Could not update form, try again."
+                                  );
+                                }
+                              }
+                            );
+                          }}
+                        >
+                          <Text style={{ color: "white", fontSize: 18 }}>
+                            Update
+                          </Text>
+                        </TouchableOpacity>
+                      </View>
+                    );
+                  }
+                })()}
               </View>
             );
           }
@@ -170,7 +371,7 @@ const styles = StyleSheet.create({
     width: "100%",
     display: "flex",
     alignItems: "center",
-    justifyContent: "center",
+    paddingTop: 80,
   },
   leaveForm: {
     width: "95%",
@@ -195,5 +396,18 @@ const styles = StyleSheet.create({
     borderTopWidth: 0.8,
     borderTopColor: "blue",
     paddingTop: 10,
+  },
+  picker: {
+    width: 150,
+  },
+  updateButton: {
+    backgroundColor: "#5BCC94",
+    borderRadius: 30,
+    padding: 15,
+    width: 120,
+    textAlign: "center",
+    height: "auto",
+    marginLeft: 210,
+    alignItems: "center",
   },
 });

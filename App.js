@@ -9,6 +9,8 @@ import MyForms from "./src/screens/myForms";
 import ViewForm from "./src/screens/viewForm";
 import FeeInstallmentForm from "./src/screens/feeInstallmentForm";
 import CustomForm from "./src/screens/customForm";
+import AdminLogin from "./src/screens/adminLogin";
+import AdminHome from "./src/screens/adminHome";
 const Stack = createNativeStackNavigator();
 export default function App() {
   return (
@@ -30,6 +32,8 @@ export default function App() {
           component={FeeInstallmentForm}
         />
         <Stack.Screen name="CustomForm" component={CustomForm} />
+        <Stack.Screen name="AdminLogin" component={AdminLogin} />
+        <Stack.Screen name="AdminHome" component={AdminHome} />
       </Stack.Navigator>
     </NavigationContainer>
   );
